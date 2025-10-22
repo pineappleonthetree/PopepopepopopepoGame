@@ -1,0 +1,433 @@
+// ====================================================================
+// *** ส่วนที่ 1: การกำหนดค่าคงที่ (Definitions) และ Pins ***
+// ====================================================================
+
+// โน้ตดนตรี (สำหรับ Beegees)
+#define NOTE_G4 392
+#define NOTE_A4 440
+#define NOTE_C5 523
+#define NOTE_E4 330
+#define NOTE_D4 294
+#define NOTE_D5 587
+#define NOTE_G5 784 
+
+// การเลือกปุ่ม/LED และ Pins
+#define CHOICE_OFF      0
+#define CHOICE_NONE     0
+#define CHOICE_RED  (1 << 0)
+#define CHOICE_GREEN    (1 << 1)
+#define CHOICE_BLUE (1 << 2)
+#define CHOICE_YELLOW   (1 << 3)
+
+#define LED_RED     10
+#define LED_GREEN   3
+#define LED_BLUE    13
+#define LED_YELLOW  5
+#define BUTTON_RED    9
+#define BUTTON_GREEN  2
+#define BUTTON_BLUE   12
+#define BUTTON_YELLOW 6
+#define BUZZER1  4
+#define BUZZER2  7
+
+// พารามิเตอร์และโหมดเกม
+#define ENTRY_TIME_LIMIT   3000   
+#define MODE_MEMORY  0
+#define MODE_BATTLE  1
+#define MODE_BEEGEES 2
+
+// ====================================================================
+// *** ส่วนที่ 2: การประกาศตัวแปรส่วนกลาง (Global Variables) ***
+// ====================================================================
+
+byte gameMode = MODE_MEMORY;
+byte gameBoard[32];
+byte gameRound = 0;
+
+// **NEW: อาร์เรย์สำหรับเก็บคะแนนสูงสุด 5 อันดับ**
+int highScores[5] = {0, 0, 0, 0, 0}; 
+
+// ตัวแปรสำหรับ Beegees Easter Egg
+int melody[] = {
+  NOTE_G4, NOTE_A4, 0, NOTE_C5, 0, 0, NOTE_G4, 0, 0, 0,
+  NOTE_E4, 0, NOTE_D4, NOTE_E4, NOTE_G4, 0,
+  NOTE_D4, NOTE_E4, 0, NOTE_G4, 0, 0,
+  NOTE_D4, 0, NOTE_E4, 0, NOTE_G4, 0, NOTE_A4, 0, NOTE_C5, 0};
+int noteDuration = 115; 
+int LEDnumber = 0; 
+
+// ====================================================================
+// *** ส่วนที่ 3: การประกาศฟังก์ชันล่วงหน้า (Prototypes) ***
+// ====================================================================
+
+int play_memory(void);
+int play_battle(void);
+void playMoves(void);
+void add_to_moves(void);
+
+void setLEDs(byte leds);
+byte wait_for_button(void);
+byte checkButton(void);
+void toner(byte which, int buzz_length_ms);
+void buzz_sound(int buzz_length_ms, int buzz_delay_us);
+
+void play_winner(void);
+void winner_sound(void);
+void play_loser(void);
+void attractMode(void);
+void play_beegees(void);
+void changeLED(void);
+void display_current_score(int score);
+// **NEW Prototypes**
+void update_high_scores(int newScore);
+void display_high_scores(void);
+
+// ====================================================================
+// *** ส่วนที่ 4: setup() และ loop() (ฟังก์ชันหลัก) ***
+// ====================================================================
+
+void setup(void)
+{
+  pinMode(BUTTON_RED, INPUT_PULLUP);
+  pinMode(BUTTON_GREEN, INPUT_PULLUP);
+  pinMode(BUTTON_BLUE, INPUT_PULLUP);
+  pinMode(BUTTON_YELLOW, INPUT_PULLUP);
+  pinMode(LED_RED, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
+  pinMode(LED_BLUE, OUTPUT);
+  pinMode(LED_YELLOW, OUTPUT);
+  pinMode(BUZZER1, OUTPUT);
+  pinMode(BUZZER2, OUTPUT);
+
+  Serial.begin(9600); 
+
+  gameMode = MODE_MEMORY; 
+  if (checkButton() == CHOICE_YELLOW) play_beegees(); 
+  if (checkButton() == CHOICE_GREEN)
+  {
+    gameMode = MODE_BATTLE;
+    setLEDs(CHOICE_GREEN);
+    toner(CHOICE_GREEN, 150);
+    setLEDs(CHOICE_RED | CHOICE_BLUE | CHOICE_YELLOW); 
+    while(checkButton() != CHOICE_NONE) ; 
+  }
+
+  play_winner(); 
+  display_high_scores(); // แสดงตารางคะแนนเริ่มต้น
+}
+
+void loop(void)
+{
+  attractMode(); 
+
+  setLEDs(CHOICE_RED | CHOICE_GREEN | CHOICE_BLUE | CHOICE_YELLOW);
+  delay(1000);
+  setLEDs(CHOICE_OFF);
+  delay(250);
+
+  if (gameMode == MODE_MEMORY)
+  {
+    if (play_memory() == 1) 
+      play_winner(); 
+    else 
+      play_loser(); 
+  }
+
+  if (gameMode == MODE_BATTLE)
+  {
+    play_battle(); 
+    play_loser(); 
+  }
+}
+
+// ====================================================================
+// *** ส่วนที่ 5: ตรรกะเกม (Game Logic) ***
+// ====================================================================
+
+int play_memory(void)
+{
+  randomSeed(millis()); 
+  gameRound = 0; 
+  
+  while (1) // Endless Mode
+  {
+    add_to_moves(); 
+    playMoves();    
+    for (byte currentMove = 0 ; currentMove < gameRound ; currentMove++)
+    {
+      byte choice = wait_for_button();
+      if (choice == 0) return 0; 
+      if (choice != gameBoard[currentMove]) 
+      {
+         return 0; // แพ้
+      }
+    }
+    
+    display_current_score(gameRound); 
+    delay(1000); 
+  }
+}
+
+// ... (play_battle, playMoves, add_to_moves เหมือนเดิม) ...
+
+int play_battle(void)
+{
+  gameRound = 0; 
+  while (1) 
+  {
+    byte newButton = wait_for_button(); 
+    gameBoard[gameRound++] = newButton; 
+    for (byte currentMove = 0 ; currentMove < gameRound ; currentMove++)
+    {
+      byte choice = wait_for_button();
+      if (choice == 0) return 0; 
+      if (choice != gameBoard[currentMove]) return 0;
+    }
+    delay(100); 
+  }
+}
+
+void playMoves(void)
+{
+  for (byte currentMove = 0 ; currentMove < gameRound ; currentMove++) 
+  {
+    toner(gameBoard[currentMove], 120); 
+    delay(150); 
+  }
+}
+
+void add_to_moves(void)
+{
+  byte newButton = random(0, 4); 
+  if(newButton == 0) newButton = CHOICE_RED;
+  else if(newButton == 1) newButton = CHOICE_GREEN;
+  else if(newButton == 2) newButton = CHOICE_BLUE;
+  else if(newButton == 3) newButton = CHOICE_YELLOW;
+  gameBoard[gameRound++] = newButton; 
+}
+
+// ====================================================================
+// *** ส่วนที่ 6: การควบคุมฮาร์ดแวร์และเอฟเฟกต์เสียง Arcade ***
+// ====================================================================
+
+// ... (setLEDs, wait_for_button, checkButton, toner, buzz_sound, winner_sound เหมือนเดิม) ...
+
+void setLEDs(byte leds)
+{
+  digitalWrite(LED_RED, ((leds & CHOICE_RED) != 0) ? HIGH : LOW);
+  digitalWrite(LED_GREEN, ((leds & CHOICE_GREEN) != 0) ? HIGH : LOW);
+  digitalWrite(LED_BLUE, ((leds & CHOICE_BLUE) != 0) ? HIGH : LOW);
+  digitalWrite(LED_YELLOW, ((leds & CHOICE_YELLOW) != 0) ? HIGH : LOW);
+}
+
+byte wait_for_button(void)
+{
+  long startTime = millis(); 
+  while ( (millis() - startTime) < ENTRY_TIME_LIMIT) 
+  {
+    byte button = checkButton();
+    if (button != CHOICE_NONE)
+    { 
+      toner(button, 120); 
+      while(checkButton() != CHOICE_NONE) ; 
+      delay(10); 
+      return button;
+    }
+  }
+  return CHOICE_NONE; 
+}
+
+byte checkButton(void)
+{
+  if (digitalRead(BUTTON_RED) == LOW) return(CHOICE_RED); 
+  else if (digitalRead(BUTTON_GREEN) == LOW) return(CHOICE_GREEN); 
+  else if (digitalRead(BUTTON_BLUE) == LOW) return(CHOICE_BLUE); 
+  else if (digitalRead(BUTTON_YELLOW) == LOW) return(CHOICE_YELLOW);
+  return(CHOICE_NONE); 
+}
+
+void toner(byte which, int buzz_length_ms)
+{
+  setLEDs(which); 
+  switch(which) 
+  {
+    case CHOICE_RED:    buzz_sound(buzz_length_ms, 800); break; 
+    case CHOICE_GREEN:  buzz_sound(buzz_length_ms, 650); break; 
+    case CHOICE_BLUE:   buzz_sound(buzz_length_ms, 500); break; 
+    case CHOICE_YELLOW: buzz_sound(buzz_length_ms, 350); break; 
+  }
+  setLEDs(CHOICE_OFF); 
+}
+
+void buzz_sound(int buzz_length_ms, int buzz_delay_us)
+{
+  long buzz_length_us = buzz_length_ms * (long)1000;
+  while (buzz_length_us > (buzz_delay_us * 2))
+  {
+    buzz_length_us -= buzz_delay_us * 2; 
+    digitalWrite(BUZZER1, LOW);
+    digitalWrite(BUZZER2, HIGH);
+    delayMicroseconds(buzz_delay_us);
+    digitalWrite(BUZZER1, HIGH);
+    digitalWrite(BUZZER2, LOW);
+    delayMicroseconds(buzz_delay_us);
+  }
+}
+
+void winner_sound(void)
+{
+    buzz_sound(100, 400); 
+    delay(50);
+    buzz_sound(100, 300); 
+    delay(50);
+    buzz_sound(100, 200); 
+    delay(50);
+    buzz_sound(200, 100); 
+}
+
+void play_winner(void)
+{
+    // ถูกเรียกเมื่อเริ่มเกมใหม่
+    Serial.println(F("\n========================="));
+    Serial.print(F("🏆 ยินดีต้อนรับ! เริ่มเกมใหม่! 🏆\n"));
+    Serial.println(F("========================="));
+    
+    setLEDs(CHOICE_GREEN | CHOICE_YELLOW);
+    winner_sound();
+    delay(300);
+    setLEDs(CHOICE_RED | CHOICE_BLUE);
+    winner_sound();
+    delay(300);
+    setLEDs(CHOICE_OFF);
+}
+
+// **ฟังก์ชันสรุปคะแนนและจัดอันดับ**
+void play_loser(void)
+{
+  int finalScore = gameRound > 0 ? gameRound - 1 : 0; 
+  
+  // **1. อัปเดตและจัดเรียงคะแนน**
+  update_high_scores(finalScore);
+
+  // **2. สรุปคะแนนปัจจุบัน**
+  Serial.println(F("\n========================="));
+  Serial.print(F("!!! GAME OVER !!!\n"));
+  Serial.print(F("คะแนนรอบนี้: "));
+  Serial.print(finalScore);
+  Serial.println(F(" ด่าน "));
+  Serial.println(F("========================="));
+
+  // **3. แสดงตารางอันดับ**
+  display_high_scores();
+  
+  // เสียงแพ้: GAME OVER (ตกต่ำ)
+  for (int delay_us = 1000; delay_us < 5000; delay_us += 500) 
+  {
+    buzz_sound(50, delay_us); 
+  }
+
+  // ไฟแดงกะพริบ
+  for (int i=0; i<3; i++) {
+    setLEDs(CHOICE_RED);
+    delay(150);
+    setLEDs(CHOICE_OFF);
+    delay(150);
+  }
+}
+
+void attractMode(void)
+{
+  while(1) 
+  {
+    setLEDs(CHOICE_RED); delay(50); if (checkButton() != CHOICE_NONE) return;
+    setLEDs(CHOICE_BLUE); delay(50); if (checkButton() != CHOICE_NONE) return;
+    setLEDs(CHOICE_GREEN); delay(50); if (checkButton() != CHOICE_NONE) return;
+    setLEDs(CHOICE_YELLOW); delay(50); if (checkButton() != CHOICE_NONE) return;
+  }
+}
+
+// ====================================================================
+// *** ส่วนที่ 7: ฟังก์ชันการจัดการคะแนนใหม่ (New High Score Functions) ***
+// ====================================================================
+
+// **ฟังก์ชันแสดงคะแนนปัจจุบันรายด่าน**
+void display_current_score(int score)
+{
+  Serial.println(F("\n-------------------------"));
+  Serial.print(F("🎉 ผ่านด่านที่ "));
+  Serial.print(score);
+  Serial.println(F(" สำเร็จ! 🎉"));
+  Serial.println(F("-------------------------"));
+}
+
+// **ฟังก์ชันอัปเดตและจัดเรียงคะแนนสูงสุด**
+void update_high_scores(int newScore)
+{
+  // 1. ตรวจสอบว่าคะแนนใหม่มีค่าพอที่จะติดอันดับ 5 หรือไม่
+  if (newScore > highScores[4]) 
+  {
+    highScores[4] = newScore; // แทนที่คะแนนที่ต่ำสุด
+    
+    // 2. จัดเรียงคะแนนจากมากไปน้อย (Bubble Sort ง่าย ๆ)
+    for (int i = 0; i < 5; i++) 
+    {
+      for (int j = 0; j < 4 - i; j++) 
+      {
+        if (highScores[j] < highScores[j+1]) 
+        {
+          // สลับตำแหน่ง
+          int temp = highScores[j];
+          highScores[j] = highScores[j+1];
+          highScores[j+1] = temp;
+        }
+      }
+    }
+  }
+}
+
+// **ฟังก์ชันแสดงตารางอันดับ**
+void display_high_scores(void)
+{
+  Serial.println(F("\n====== 🏆 ตารางอันดับ 5 คะแนนสูงสุด 🏆 ======"));
+  Serial.println(F("อันดับ | คะแนน (ด่าน)"));
+  Serial.println(F("------------------------------"));
+  for (int i = 0; i < 5; i++) 
+  {
+    Serial.print(i + 1);
+    Serial.print(F("      | "));
+    Serial.println(highScores[i]);
+  }
+  Serial.println(F("=========================================="));
+}
+
+// ... (play_beegees, changeLED เหมือนเดิม) ...
+
+void play_beegees(void)
+{
+  setLEDs(CHOICE_YELLOW);
+  toner(CHOICE_YELLOW, 150);
+  setLEDs(CHOICE_RED | CHOICE_GREEN | CHOICE_BLUE); 
+  while(checkButton() != CHOICE_NONE) ; 
+  setLEDs(CHOICE_NONE); delay(1000); 
+
+  digitalWrite(BUZZER1, LOW); 
+
+  while(checkButton() == CHOICE_NONE) 
+  {
+    for (int thisNote = 0; thisNote < 32; thisNote++) {
+      changeLED(); 
+      tone(BUZZER2, melody[thisNote],noteDuration); 
+      int pauseBetweenNotes = noteDuration * 1.30;
+      delay(pauseBetweenNotes);
+      noTone(BUZZER2); 
+    }
+  }
+}
+
+void changeLED(void)
+{
+  setLEDs(1 << LEDnumber); 
+
+  LEDnumber++; 
+  if(LEDnumber > 3) LEDnumber = 0; 
+}
