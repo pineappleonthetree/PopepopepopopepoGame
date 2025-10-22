@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Popepopepopopepo Game</title>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header role="banner">
+    <nav aria-label="หลัก" id="main-nav">
+      <div class="brand">
+        <a href="#home" id="logo">Popepopepopopepo Game Project</a>
+      </div>
+      <ul id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#components">Components</a></li>
+        <li><a href="#video">Video</a></li>
+        <li><a href="#code">Code</a></li>
+        <li><a href="#members">Members</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main id="home" role="main">
+
+    <!-- About Section -->
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      <p>ส่วนแนะนำเกี่ยวกับเว็บไซต์หรือโปรเจ็กต์ — เขียนข้อความสั้น ๆ ที่นี่</p>
+    </section>
+
+    <!-- Components Section -->
+    <section id="components" aria-labelledby="components-heading">
+      <h2 id="components-heading">Components</h2>
+      <p>รายการคอมโพเนนต์หรือโมดูลที่มีในโปรเจ็กต์</p>
+      <div id="component-list">
+        <article class="component" id="component-1">
+          <h3>Component A</h3>
+          <p>คำอธิบายสั้น ๆ ของ Component A</p>
+        </article>
+        <article class="component" id="component-2">
+          <h3>Component B</h3>
+          <p>คำอธิบายสั้น ๆ ของ Component B</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Video Section -->
+    <section id="video" aria-labelledby="video-heading">
+      <h2 id="video-heading">Video</h2>
+      <p>วิดีโอแสดงตัวอย่างหรือสาธิต</p>
+      <div class="video-wrapper">
+        <iframe id="promo-video" title="Demo video" width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <!-- Code Section -->
+    <section id="code" aria-labelledby="code-heading">
+      <h2 id="code-heading">Code</h2>
+      <p>ตัวอย่างโค้ดหรือ snippet ที่ต้องการโชว์</p>
+      <pre aria-label="Code example"><code>// ตัวอย่างโค้ด
+function hello() {
+  console.log('Hello world');
+}
+</code></pre>
+    </section>
+
+    <!-- Members Section -->
+    <section id="members" aria-labelledby="members-heading">
+      <h2 id="members-heading">Members</h2>
+      <ul id="member-list">
+        <li class="member">นางสาวชยารัตน์ ฤทธิกุล รหัส 67070031</li>
+        <li class="member">นางสาวชลธิชา คนธภักดี รหัส 67070033</li>
+        <li class="member">นายญาณภัทร นิลสยาม รหัส 67070039</li>
+        <li class="member">นางสาวธัญญา ชนะถาวราลักษณ์ รหัส 67070075</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script>
+    // ป้องกันไม่ให้ลิงก์รีเฟรชหน้า และเลื่อนแบบ smooth ไปยังหัวข้อในหน้าเดียวกัน
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
