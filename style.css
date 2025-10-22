@@ -1,13 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 /* รีเซ็ตค่าเริ่มต้น */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box; /* ป้องกันขนาดเกินขอบจอ */
+  font-family: "Kanit";
+  color: #29264C;
 }
 
 body {
     background-color: #B89AC9;
+    padding-top: 70px;
+    overflow-x: hidden; /* ป้องกันเลื่อนแนวนอน */
+    background: linear-gradient(150deg, #B89AC9, #29264C);
 }
+
 header {
   position: fixed;
   top: 0;
@@ -24,7 +32,7 @@ nav {
   display: flex;
   justify-content: space-between; /* ซ้าย-ขวา */
   align-items: center; /* อยู่ในบรรทัดเดียวกัน */
-  max-width: 1200px; /* จำกัดความกว้างสูงสุดของเนื้อหา navbar */
+  max-width: 100%; /* จำกัดความกว้างสูงสุดของเนื้อหา navbar */
   margin: 0 auto; /* จัดให้อยู่กลางหน้าจอ */
   width: 100%;
 }
@@ -33,8 +41,8 @@ nav {
 #logo {
   text-decoration: none;
   color: white;
-  font-weight: bold;
-  font-size: 18px;
+  font-weight: 500;
+  font-size: 24px;
   white-space: nowrap; /* ป้องกันชื่อโปรเจกต์ตัดบรรทัด */
 }
 
@@ -48,17 +56,57 @@ nav {
 #nav-links a {
   text-decoration: none;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   transition: color 0.2s ease;
 }
 
 #nav-links a:hover {
-  color: #00bfff;
+  color: #8f7ab8;
 }
 
-/* เนื้อหาไม่ถูกบังด้วย header */
-body {
-  padding-top: 70px;
-  font-family: sans-serif;
-  overflow-x: hidden; /* ป้องกันเลื่อนแนวนอน */
+#about-heading {
+    text-align: center;
+    font-size: 36px;
+
+}
+
+#components-heading {
+    text-align: center;
+    font-size: 36px;
+
+}
+#component-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 50px;
+    gap: 30px;
+}
+
+/* กรอบรูป */
+.component img {
+  width: 100%;
+  height: 150px;
+  background-color: white;
+  border-radius: 10px;
+  display: block;
+  margin-bottom: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ข้อความหัวข้อ */
+.component h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center; /* อยู่ตรงกลางใต้รูป */
+}
+
+#video {
+    text-align: center;
+}
+
+#video-heading {
+    font-size: 36px;
 }
