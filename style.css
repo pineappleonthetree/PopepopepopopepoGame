@@ -1,0 +1,64 @@
+/* รีเซ็ตค่าเริ่มต้น */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* ป้องกันขนาดเกินขอบจอ */
+}
+
+body {
+    background-color: #B89AC9;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #29264C;
+  color: white;
+  padding: 20px 40px;
+  overflow-x: hidden; /* ป้องกัน navbar ล้น */
+}
+
+/* จัดภายใน nav ให้ชื่ออยู่ซ้าย เมนูอยู่ขวา */
+nav {
+  display: flex;
+  justify-content: space-between; /* ซ้าย-ขวา */
+  align-items: center; /* อยู่ในบรรทัดเดียวกัน */
+  max-width: 1200px; /* จำกัดความกว้างสูงสุดของเนื้อหา navbar */
+  margin: 0 auto; /* จัดให้อยู่กลางหน้าจอ */
+  width: 100%;
+}
+
+/* โลโก้ทางซ้าย */
+#logo {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  white-space: nowrap; /* ป้องกันชื่อโปรเจกต์ตัดบรรทัด */
+}
+
+/* เมนูทางขวา */
+#nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+#nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+#nav-links a:hover {
+  color: #00bfff;
+}
+
+/* เนื้อหาไม่ถูกบังด้วย header */
+body {
+  padding-top: 70px;
+  font-family: sans-serif;
+  overflow-x: hidden; /* ป้องกันเลื่อนแนวนอน */
+}
