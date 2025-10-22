@@ -13,7 +13,7 @@ body {
     background-color: #B89AC9;
     padding-top: 70px;
     overflow-x: hidden; /* ป้องกันเลื่อนแนวนอน */
-    background: linear-gradient(150deg, #B89AC9, #29264C);
+    background: linear-gradient(145deg, #B89AC9, #29264C);
 }
 
 header {
@@ -109,4 +109,43 @@ nav {
 
 #video-heading {
     font-size: 36px;
+}
+
+#code-heading {
+    text-align: center;
+    font-size: 36px;
+}
+
+#members-heading {
+    text-align: center;
+    font-size: 36px;
+}
+
+#member-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    font-weight: 400;
+    padding: 50px;
+    gap: 30px
+}
+.member {
+  background-color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  font-size: 18px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.member-name {
+  display: block;  /* ขึ้นบรรทัดแรก */
+  margin-bottom: 5px;
+}
+
+.member-id {
+  display: block;  /* ขึ้นบรรทัดที่สอง */
 }
