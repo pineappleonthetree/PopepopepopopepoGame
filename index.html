@@ -77,6 +77,44 @@
       </div>
     </section>
 
+    <!-- input -->
+      <section id="input" aria-labelledby="input-heading">
+        <div class="input">
+          <h2 id="input-heading">Input</h2>
+          <br>
+          <p id="paragraph">
+            ในโปรเจคนี้มี  input ทั้งหมด 4 ปุ่มกด (Switches) ซึ่งใช้แทนสีแต่ละดวงของ (LED) โดยจะให้ผู้เล่นกดตามลำดับที่ไฟแสดงออกมา เพื่อทดสอบความจำ
+          </p>
+        </div>
+      </section>
+
+    <!-- Output -->
+      <section id="Output" aria-labelledby="Output">
+        <div class="Output">
+          <h2 id="Output-heading">Output</h2>
+          <br>
+          <p id="paragraph">
+            ในโปรเจคนี้มี output คือ แสง (LED) + เสียง (Buzzer) + ข้อความ (Serial Monitor) ที่ทำงานร่วมกันแบบเรียลไทม์เพื่อให้ผู้เล่นเห็นผลลัพธ์ ของเกมได้ครบทั้งภาพและเสียง
+          </p>
+        </div>
+      </section>
+
+<!-- Process -->
+<section id="process" aria-labelledby="process-heading">
+  <div class="process">
+    <h2 id="process-heading">Process (กระบวนการทำงาน)</h2>
+          <p id="paragraph">
+          1.เริ่มต้นระบบ: Arduino ทำการสุ่มลำดับของ LED ด้วย random() และระบบเริ่มจาก Level 1<br>
+2แสดงลำดับไฟ (Game Sequence): LED แต่ละดวงจะกระพริบตามลำดับที่ Arduino สุ่มไว้ และผู้เล่นต้องจำลำดับนี้ให้ได้<br>
+3.รอการตอบจากผู้เล่น: เมื่อผู้เล่นกดปุ่ม ระบบจะตรวจว่าเป็นปุ่มที่ถูกต้องตามลำดับหรือไม่ หากถูก ระบบจะเล่นเสียง/ไฟยืนยัน หากผิด ระบบจะกระพริบไฟทั้งหมดเพื่อแสดงว่า Game Over<br>
+4.เพิ่มระดับความยาก: เมื่อผู้เล่นตอบถูกครบ ระบบจะเพิ่มความยากใน Level ถัดไปและเล่นต่อ เล่นได้เรื่อย ๆ จนกว่าจะกดผิด<br>
+5.จบเกม / รีเซต: เมื่อผู้เล่นกดผิด ระบบจะรีเซตค่ากลับไปเริ่ม Level ที่ 1
+          </p>
+  </div>
+</section>
+
+
+
     <!-- Video Section -->
      <br>
     <section id="video" aria-labelledby="video-heading">

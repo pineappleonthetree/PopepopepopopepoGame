@@ -138,6 +138,81 @@ nav {
   text-align: center; /* อยู่ตรงกลางใต้รูป */
 }
 
+/* ===== INPUT SECTION ===== */
+#input {
+  display: flex;                /* ใช้ Flexbox จัดตำแหน่ง */
+  justify-content: center;      /* จัดแนวนอนให้อยู่กลาง */
+  align-items: center;          /* จัดแนวตั้งให้อยู่กลาง (ถ้าสูงพอ) */
+  flex-direction: column;       /* เรียงหัวข้อและข้อความในแนวตั้ง */
+  text-align: center;           /* ให้ข้อความอยู่กลาง */
+  margin: 80px auto;            /* ระยะห่างบน-ล่าง และจัดกลางแนวนอน */
+  max-width: 880px;             /* จำกัดความกว้างไม่ให้ยาวเกิน */
+  padding: 20px;
+}
+
+#input-heading {
+  text-align: center;
+  font-size: 36px;
+}
+
+#input #paragraph {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #ffffff;
+}
+
+/* ===== OUTPUT SECTION ===== */
+#Output {
+  display: flex;                /* ใช้ Flexbox จัดตำแหน่ง */
+  justify-content: center;      /* จัดแนวนอนให้อยู่กลาง */
+  align-items: center;          /* จัดแนวตั้งให้อยู่กลาง (ถ้าสูงพอ) */
+  flex-direction: column;       /* เรียงหัวข้อและข้อความในแนวตั้ง */
+  text-align: center;           /* ให้ข้อความอยู่กลาง */
+  margin: 80px auto;            /* ระยะห่างบน-ล่าง และจัดกลางแนวนอน */
+  max-width: 880px;             /* จำกัดความกว้างไม่ให้ยาวเกิน */
+  padding: 20px;
+}
+
+#Output-heading {
+  text-align: center;
+  font-size: 36px;
+}
+
+#Output #paragraph {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #ffffff;
+}
+
+/* ===== PROCESS SECTION ===== */
+#process {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 80px auto;
+  max-width: 900px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* ✅ หัวข้อหลัก (สีเดิมของเว็บ) */
+#process-heading {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+/* ✅ ข้อความในย่อหน้าเป็นสีขาว */
+#paragraph {
+  color: #ffffff;       /* ทำให้ข้อความทั้งหมดเป็นสีขาว */
+  font-size: 1rem;
+  line-height: 1.8;
+  text-align: left;     /* ชิดซ้ายเพื่ออ่านง่าย */
+  max-width: 880px;
+}
+
+
 /* Video */
 #video {
     text-align: center;
