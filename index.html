@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="th">
 <head>
@@ -32,15 +30,20 @@
 
     <!-- About Section -->
      <br>
-    <section id="about" aria-labelledby="about-heading">
-      <h2 id="about-heading">About this Project</h2>
-      <img src="" alt="">
-      <p id="paragraph">โปรเจค Popepopepopopepo Game เป็นโปรเจคที่ใช้บอร์ด Arduino UNO R4 WiFi ในการต่อวงจรเกม LED Sequence
-        โดยการเล่นเกมนี้ คือ ผู้เล่นต้องกดลำดับของไฟที่กระพริบให้ถูกต้องตามลำดับ ภายในระยะเวลาที่โปรแกรมได้กำหนดไว้ หากแพ้ เกมจะรีเซตเริ่มต้นใหม่ที่ Level 1 ผู้เล่นจะชนะก็ต่อเมื่อผ่าน Level 13 ไปได้
-        และขึ้นแสดงข้อความเมื่อเล่นผ่านในแต่ละ Level นอกจากนี้ยังมีเสียงจากไฟที่กระพริบอีกด้วย
-        ผลลัพธ์เมื่อจบเกม จะแสดง Level และ Score Board สูงสุดใน 5 อันดับแรก 
-      </p>
-    </section>
+      <section id="about" aria-labelledby="about-heading">
+        <img src="image/image07.jpg" alt="">
+        <div class="about-text">
+          <h2 id="about-heading">About this Project</h2>
+          <br>
+          <p id="paragraph">
+            โปรเจค Popepopepopopepo Game เป็นโปรเจคที่ใช้บอร์ด Arduino UNO R4 WiFi ในการต่อวงจรเกม LED Sequence
+            โดยการเล่นเกมนี้ คือ ผู้เล่นต้องกดลำดับของไฟที่กระพริบให้ถูกต้องตามลำดับ ภายในระยะเวลาที่โปรแกรมได้กำหนดไว้ หากแพ้ เกมจะรีเซตเริ่มต้นใหม่ที่ Level 1 ผู้เล่นจะชนะก็ต่อเมื่อผ่าน Level 13 ไปได้
+            และขึ้นแสดงข้อความเมื่อเล่นผ่านในแต่ละ Level นอกจากนี้ยังมีเสียงจากไฟที่กระพริบอีกด้วย
+            ผลลัพธ์เมื่อจบเกม จะแสดง Level และ Score Board สูงสุดใน 5 อันดับแรก 
+          </p>
+        </div>
+      </section>
+
 
     <!-- Components Section -->
      <br>
@@ -57,7 +60,7 @@
         </article>
         <article class="component" id="component-3">
             <img src="image/image03.jpg" alt="">
-          <h3>Switchs</h3>
+          <h3>Switches</h3>
         </article>
         <article class="component" id="component-4">
             <img src="image/image04.jpg" alt="">
@@ -101,18 +104,22 @@ function hello() {
       <h2 id="members-heading">Members</h2>
       <ul id="member-list">
         <li class="member">
+          <img src="image/member01.jpeg" alt="">
             <span class="member-name">นางสาวชยารัตน์ ฤทธิกุล</span>
             <span class="member-id">รหัส 67070031</span>
         </li>
         <li class="member">
+          <img src="image/member02.jpg" alt="">
             <span class="member-name">นางสาวชลธิชา คนธภักดี</span>
             <span class="member-id">รหัส 67070033</span>
         </li>
         <li class="member">
+          <img src="image/member03.png" alt="">
             <span class="member-name">นายญาณภัทร นิลสยาม</span>
             <span class="member-id">รหัส 67070039</span>
         </li>
         <li class="member">
+          <img src="image/member04.jpg" alt="">
             <span class="member-name">นางสาวธัญญา ชนะถาวราลักษณ์</span>
             <span class="member-id">รหัส 67070075</span>
         </li>
@@ -122,18 +129,32 @@ function hello() {
 
   </main>
 
-  <script>
-    // ป้องกันไม่ให้ลิงก์รีเฟรชหน้า และเลื่อนแบบ smooth ไปยังหัวข้อในหน้าเดียวกัน
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const target = document.querySelector(targetId);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute('href');
+      const target = document.querySelector(targetId);
+
+      if (target) {
+        // ✅ หาความสูง navbar
+        const navbar = document.querySelector('#main-nav');
+        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+
+        // ✅ คำนวณตำแหน่งใหม่ (เผื่อระยะเพิ่มอีก 40px)
+        const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - navbarHeight - 40; // 👈 เพิ่ม 40px กันบังหัวข้อ
+
+        // ✅ เลื่อนแบบ smooth
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
     });
-  </script>
+  });
+</script>
 </body>
 </html>
+
