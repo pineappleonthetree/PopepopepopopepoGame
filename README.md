@@ -14,9 +14,14 @@ PopepopepopopepoGame Project 🐈💡
 <img src="image/image07.jpg" alt="My Logo" width="300">
 
 ## 🍡 Project's Website
+https://pineappleonthetree.github.io/PopepopepopopepoGame.github.io/
+
+## 📜 Poster
+https://drive.google.com/file/d/1Hy9IggyvmVZ_KEzUy5CPx7wbM_ArGMrG/view?usp=sharing
 
 
 ## 🍮 Video Presentation
+https://youtu.be/RYaqvCTURmQ
 
 
 ## สมาชิก
