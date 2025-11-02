@@ -13,7 +13,6 @@
 
 body {
   font-family: "Mali";
-  background-color: #8f7ab8;
     /* background-color: #B89AC9; */
     padding-top: 70px;
     overflow-x: hidden; /* ป้องกันเลื่อนแนวนอน */
@@ -125,6 +124,7 @@ nav {
   width: 500px;
   margin-top: 180px;
   margin-left: 40px;
+  color: white;
 }
 
 #about-heading {
@@ -143,23 +143,31 @@ nav {
 }
 
 /* Components */
+#components {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(180deg, #B89AC9, #3b3864);
+}
 
 #components-heading {
-    text-align: center;
-    font-size: 36px;
+  color: #fbf3d0;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  margin-top: 50px;
 
 }
 #component-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 50px;
-    gap: 30px;
+  padding:100px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 90px; 
 }
 
-/* กรอบรูป */
 .component img {
-  width: 100%;
+  width: 250px;
   height: 200px;
   background-color: white;
   border-radius: 10px;
@@ -168,97 +176,71 @@ nav {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
-
-/* ข้อความหัวข้อ */
 .component h3 {
-  margin: 0;
+  color: #ffffff;
   font-size: 18px;
   font-weight: 600;
-  text-align: center; /* อยู่ตรงกลางใต้รูป */
+  text-align: center;
 }
 
-/* ===== INPUT SECTION ===== */
 #input {
-  display: flex;                /* ใช้ Flexbox จัดตำแหน่ง */
-  justify-content: center;      /* จัดแนวนอนให้อยู่กลาง */
-  align-items: center;          /* จัดแนวตั้งให้อยู่กลาง (ถ้าสูงพอ) */
-  flex-direction: column;       /* เรียงหัวข้อและข้อความในแนวตั้ง */
-  text-align: center;           /* ให้ข้อความอยู่กลาง */
-  margin: 80px auto;            /* ระยะห่างบน-ล่าง และจัดกลางแนวนอน */
-  max-width: 880px;             /* จำกัดความกว้างไม่ให้ยาวเกิน */
-  padding: 20px;
-}
-
-#input-heading {
-  text-align: center;
-  font-size: 36px;
-}
-
-#input #paragraph {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #ffffff;
-}
-
-/* ===== OUTPUT SECTION ===== */
-#Output {
-  display: flex;                /* ใช้ Flexbox จัดตำแหน่ง */
-  justify-content: center;      /* จัดแนวนอนให้อยู่กลาง */
-  align-items: center;          /* จัดแนวตั้งให้อยู่กลาง (ถ้าสูงพอ) */
-  flex-direction: column;       /* เรียงหัวข้อและข้อความในแนวตั้ง */
-  text-align: center;           /* ให้ข้อความอยู่กลาง */
-  margin: 80px auto;            /* ระยะห่างบน-ล่าง และจัดกลางแนวนอน */
-  max-width: 880px;             /* จำกัดความกว้างไม่ให้ยาวเกิน */
-  padding: 20px;
-}
-
-#Output-heading {
-  text-align: center;
-  font-size: 36px;
-}
-
-#Output #paragraph {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #ffffff;
-}
-
-/* ===== PROCESS SECTION ===== */
-#process {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(270deg, #B89AC9, #3b3864);
+}
+
+.containers {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 150px;
+  margin-top: 50px;
+  
+}
+
+#input-box, #Output-box {
+  width: 550px;
+  color: #ffffff;
+  padding: 30px;
+  margin: 30px;
+  display: flex;
   flex-direction: column;
-  margin: 80px auto;
-  max-width: 2000px;
-  padding: 20px;
+  align-items: center;
+}
+
+#input-box img , #Output-box img{
+  width: 150px;
+  height: auto;
+}
+
+#input-heading, #Output-heading, #process-heading {
+  color: #fbf3d0;
   text-align: center;
-}
-
-/* ✅ หัวข้อหลัก (สีเดิมของเว็บ) */
-#process-heading {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: bold;
-  margin-bottom: 25px;
+}
+#process {
+  width: 100%;
+  margin-top: -40px;
 }
 
-/* ✅ ข้อความในย่อหน้าเป็นสีขาว */
-#paragraph {
-  color: #ffffff;       /* ทำให้ข้อความทั้งหมดเป็นสีขาว */
-  font-size: 1rem;
-  line-height: 1.8;
-  text-align: left;     /* ชิดซ้ายเพื่ออ่านง่าย */
-  max-width: 880px;
+#process-box {
+  color: #ffffff;
+  width: 1200px;
 }
 
 
-/* Video */
 #video {
-    text-align: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(360deg, #B89AC9, #3b3864);
+  padding-top: 70px;
 }
 
-#video-heading {
-    font-size: 36px;
+#video-heading, #code-heading, #poster-heading {
+  font-size: 36px;
+  color: #fbf3d0;
 }
 
 /* Code */
@@ -278,7 +260,7 @@ nav {
 .code-button {
   display: inline-block;
   padding: 12px 24px;
-  background-color: #24292e;    /* สีพื้นหลังเทาเข้มแบบ GitHub */
+  background-color: #3b3864;    /* สีพื้นหลังเทาเข้มแบบ GitHub */
   color: #ffffff;               /* ตัวอักษรสีขาว */
   text-decoration: none;        /* ตัดเส้นใต้ */
   border-radius: 8px;           /* มุมโค้ง */
@@ -311,7 +293,7 @@ nav {
 .poster-button {
   display: inline-block;
   padding: 12px 24px;
-  background-color: #2c3e50;    /* สีพื้นหลังเทา-น้ำเงินเข้ม */
+  background-color: #3b3864;    /* สีพื้นหลังเทา-น้ำเงินเข้ม */
   color: #ffffff;
   text-decoration: none;
   border-radius: 8px;
@@ -330,13 +312,15 @@ nav {
 
 /* Member */
 #members {
+  width: 100vw;
+  background: linear-gradient(90deg, #B89AC9, #3b3864);
   text-align: center;
-  margin: 50px auto;
-  width: 90%;
+  padding-top: 70px;
 }
 
 #members-heading {
   font-size: 36px;
+  color: #fbf3d0;
 }
 
 #member-list {

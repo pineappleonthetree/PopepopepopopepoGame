@@ -56,115 +56,118 @@
 
 
     <!-- Components Section -->
-     <br>
-    <section id="components" aria-labelledby="components-heading">
-      <h2 id="components-heading">Components</h2>
-      <div id="component-list">
-        <article class="component" id="component-1">
-            <img src="image/image01.jpg" alt="">
-          <h3>Arduino Uno R4 WIFI </h3>
-        </article>
-        <article class="component" id="component-2">
-            <img src="image/image02.png" alt="">
-          <h3>Resistors</h3>
-        </article>
-        <article class="component" id="component-3">
-            <img src="image/image03.jpg" alt="">
-          <h3>Switches</h3>
-        </article>
-        <article class="component" id="component-4">
-            <img src="image/image04.jpg" alt="">
-          <h3>Breadboard</h3>
-        </article>
-        <article class="component" id="component-5">
-            <img src="image/image05.webp" alt="">
-          <h3>LED</h3>
-        </article>
-        <article class="component" id="component-6">
-            <img src="image/image06.webp" alt="">
-          <h3>Passive Buzzer</h3>
-        </article>
+    <section id="components">
+      <div id="incomponent">
+        <h2 id="components-heading">Components</h2>
+        <div id="component-list">
+          <article class="component" id="component-1">
+              <img src="image/image01.jpg" alt="">
+            <h3>Arduino Uno R4 WIFI </h3>
+          </article>
+          <article class="component" id="component-2">
+              <img src="image/image02.png" alt="">
+            <h3>Resistors</h3>
+          </article>
+          <article class="component" id="component-3">
+              <img src="image/image03.jpg" alt="">
+            <h3>Switches</h3>
+          </article>
+          <article class="component" id="component-4">
+              <img src="image/image04.jpg" alt="">
+            <h3>Breadboard</h3>
+          </article>
+          <article class="component" id="component-5">
+              <img src="image/image05.webp" alt="">
+            <h3>LED</h3>
+          </article>
+          <article class="component" id="component-6">
+              <img src="image/image06.webp" alt="">
+            <h3>Passive Buzzer</h3>
+          </article>
+        </div>
       </div>
     </section>
 
-    <!-- input -->
-      <section id="input" aria-labelledby="input-heading">
-        <div class="input">
-          <h2 id="input-heading">Input</h2>
+  <!-- input -->
+  <section id="input" aria-labelledby="input-heading">
+    <div class="containers">
+      <div id="input-box">
+        <h2 id="input-heading">Input</h2>
+        <br>
+        <p id="paragraph">
+            Input ทั้งหมด 4 ปุ่มกด (Switches) ซึ่งใช้แทนสีแต่ละดวงของ (LED) โดยจะให้ผู้เล่นกดตามลำดับที่ไฟแสดงออกมา เพื่อทดสอบความจำ
+        </p>
+        <br>
+        <img src="image/cat3.JPG" alt="">
+      </div>
+
+      <!-- Output -->
+      <div id="Output-box">
+        <h2 id="Output-heading">Output</h2>
+        <br>
+        <p id="paragraph">
+              Output คือ แสง (LED) + เสียง (Buzzer) + ข้อความ (Serial Monitor) ที่ทำงานร่วมกันแบบเรียลไทม์เพื่อให้ผู้เล่นเห็นผลลัพธ์ ของเกมได้ครบทั้งภาพและเสียง
+        </p>
+        <br>
+        <img src="image/cat2.JPG" alt="">
+      </div>
+
+      <!-- Process -->
+      <section id="process" aria-labelledby="process-heading">
+        <div id="process-box">
+          <h2 id="process-heading">Process</h2>
           <br>
           <p id="paragraph">
-            ในโปรเจคนี้มี  input ทั้งหมด 4 ปุ่มกด (Switches) ซึ่งใช้แทนสีแต่ละดวงของ (LED) โดยจะให้ผู้เล่นกดตามลำดับที่ไฟแสดงออกมา เพื่อทดสอบความจำ
+                1. เริ่มต้นระบบ: Arduino ทำการสุ่มลำดับของ LED ด้วย random() และระบบเริ่มจาก Level 1<br>
+                2. แสดงลำดับไฟ (Game Sequence): LED แต่ละดวงจะกระพริบตามลำดับที่ Arduino สุ่มไว้ และผู้เล่นต้องจำลำดับนี้ให้ได้<br>
+                3. รอการตอบจากผู้เล่น: เมื่อผู้เล่นกดปุ่ม ระบบจะตรวจว่าเป็นปุ่มที่ถูกต้องตามลำดับหรือไม่ หากถูก ระบบจะเล่นเสียง/ไฟยืนยัน หากผิด ระบบจะกระพริบไฟทั้งหมดเพื่อแสดงว่า Game Over
+                4. เพิ่มระดับความยาก: เมื่อผู้เล่นตอบถูกครบ ระบบจะเพิ่มความยากใน Level ถัดไปและเล่นต่อ เล่นได้เรื่อย ๆ จนกว่าจะกดผิด<br>
+                5. จบเกม / รีเซต: เมื่อผู้เล่นกดผิด ระบบจะรีเซตค่ากลับไปเริ่ม Level ที่ 1
           </p>
         </div>
       </section>
-
-    <!-- Output -->
-      <section id="Output" aria-labelledby="Output">
-        <div class="Output">
-          <h2 id="Output-heading">Output</h2>
-          <br>
-          <p id="paragraph">
-            ในโปรเจคนี้มี output คือ แสง (LED) + เสียง (Buzzer) + ข้อความ (Serial Monitor) ที่ทำงานร่วมกันแบบเรียลไทม์เพื่อให้ผู้เล่นเห็นผลลัพธ์ ของเกมได้ครบทั้งภาพและเสียง
-          </p>
-        </div>
-      </section>
-
-<!-- Process -->
-<section id="process" aria-labelledby="process-heading">
-  <div class="process">
-    <h2 id="process-heading">Process</h2>
-          <p id="paragraph">
-          1.เริ่มต้นระบบ: Arduino ทำการสุ่มลำดับของ LED ด้วย random() และระบบเริ่มจาก Level 1<br>
-2แสดงลำดับไฟ (Game Sequence): LED แต่ละดวงจะกระพริบตามลำดับที่ Arduino สุ่มไว้ และผู้เล่นต้องจำลำดับนี้ให้ได้<br>
-3.รอการตอบจากผู้เล่น: เมื่อผู้เล่นกดปุ่ม ระบบจะตรวจว่าเป็นปุ่มที่ถูกต้องตามลำดับหรือไม่ หากถูก ระบบจะเล่นเสียง/ไฟยืนยัน หากผิด ระบบจะกระพริบไฟทั้งหมดเพื่อแสดงว่า Game Over<br>
-4.เพิ่มระดับความยาก: เมื่อผู้เล่นตอบถูกครบ ระบบจะเพิ่มความยากใน Level ถัดไปและเล่นต่อ เล่นได้เรื่อย ๆ จนกว่าจะกดผิด<br>
-5.จบเกม / รีเซต: เมื่อผู้เล่นกดผิด ระบบจะรีเซตค่ากลับไปเริ่ม Level ที่ 1
-          </p>
-  </div>
-</section>
+    </div>
+  </section>
 
 
-
-    <!-- Video Section -->
-     <br>
-    <section id="video" aria-labelledby="video-heading">
-      <h2 id="video-heading">Video</h2>
-      <br>
-      <div class="video-wrapper">
+  <!-- Video Section -->
+  <section id="video" aria-labelledby="video-heading">
+    <div class="video-wrapper">
+        <h2 id="video-heading">Video</h2>
+        <br>
         <iframe id="promo-video" title="Demo video" width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+    </div>
+  
+      <!-- Code Section -->
+    <section id="code" aria-labelledby="code-heading">
+      <div class="code-box">
+        <br>
+        <br>
+        <h2 id="code-heading">Source Code</h2>
+        <a href="https://github.com/pineappleonthetree/PopepopepopopepoGame.git"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="code-button">
+            💻 PopepopepopopepoGame Code
+        </a>
+      </div>
+  
+        <!-- Poster Section -->
+      <div class="poster-box">
+        <br>
+        <h2 id="poster-heading">Project Poster</h2>
+        <a href="https://drive.google.com/file/d/1Hy9IggyvmVZ_KEzUy5CPx7wbM_ArGMrG/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="poster-button">
+              📜 PopepopepopopepoGame Poster
+        </a>
       </div>
     </section>
-
-<!-- Code Section -->
-<br>
-<section id="code" aria-labelledby="code-heading">
-  <h2 id="code-heading">Source Code</h2>
-
-  <a href="https://github.com/pineappleonthetree/PopepopepopopepoGame.git"
-     target="_blank"
-     rel="noopener noreferrer"
-     class="code-button">
-    💻 PopepopepopopepoGame Code
-  </a>
-</section>
-
-<!-- Poster Section -->
-<br>
-<section id="poster" aria-labelledby="poster-heading">
-  <h2 id="poster-heading">Project Poster</h2>
-
-  <a href="https://drive.google.com/file/d/1Hy9IggyvmVZ_KEzUy5CPx7wbM_ArGMrG/view?usp=sharing"
-     target="_blank"
-     rel="noopener noreferrer"
-     class="poster-button">
-    📜 PopepopepopopepoGame Poster
-  </a>
-</section>
+  </section>
 
 
-
-    <!-- Members Section -->
-     <br>
+  <!-- Members Section -->
     <section id="members" aria-labelledby="members-heading">
       <h2 id="members-heading">Members</h2>
       <ul id="member-list">
